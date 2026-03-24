@@ -20,6 +20,173 @@
         <meta name="twitter:site" content="@puravigal">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/custom.js"></script>
+<style>
+            /* Quick UI fixes & Modal Styles */
+            :root {
+                --accent-pink: #E60063;
+                --accent-blue: #235BDE;
+                --bg-dark: #000;
+                --card-bg: #111;
+                --border-dark: #2a2a2a;
+            }
+
+            /* Main Page Button Color Update */
+            .primary_cta_btn {
+                background-color: #E60063 !important; /* logo magenta */
+                cursor: pointer;
+            }
+
+            /* Slide-in Modal Styling */
+            .contact_modal {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Initially hidden off-screen to the right */
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent background overlay */
+                z-index: 10000;
+                display: flex;
+                justify-content: flex-end; /* Align modal to the right */
+                transition: 0.4s ease-out; /* Slide-in animation */
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .contact_modal.active {
+                right: 0;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .modal_content {
+                width: 450px; /* Modal width on laptop */
+                height: 100%;
+                background-color: var(--card-bg);
+                border-left: 1px solid var(--border-dark);
+                padding: 50px 30px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+                overflow-y: auto;
+                position: relative;
+            }
+
+            @media (max-width: 500px) {
+                .modal_content { width: 100%; padding: 40px 20px; } /* Full width on mobile */
+            }
+
+            /* Modal Title and Description */
+            .modal_content h2 {
+                color: #fff;
+                font-size: 32px;
+                margin-bottom: 10px;
+                font-weight: 800;
+            }
+
+            .modal_content p {
+                color: #888;
+                margin-bottom: 40px;
+                font-size: 16px;
+            }
+
+            /* Modal Close Button */
+            .close_modal {
+                position: absolute;
+                top: 25px;
+                right: 25px;
+                background: none;
+                border: none;
+                font-size: 30px;
+                color: #666;
+                cursor: pointer;
+                line-height: 1;
+                transition: 0.3s;
+            }
+
+            .close_modal:hover { color: #fff; }
+
+            /* Contact Form Styling */
+            .puravigal_form { display: flex; flex-direction: column; gap: 20px; }
+
+            /* Input Box Fix (Visibility and Focus) */
+            .puravigal_form .input_group { text-align: left; }
+            .puravigal_form label {
+                display: block;
+                color: #aaa;
+                font-size: 13px;
+                margin-bottom: 8px;
+                font-weight: 500;
+            }
+
+            /* Puravigal Form Inputs - Visibility Overhaul */
+.puravigal_form input, 
+.puravigal_form textarea {
+    opacity: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 15px !important;
+    margin-top: 5px !important;
+    margin-bottom: 15px !important;
+    
+    /* Indha rendu line dhaan mukkiyam */
+    background-color: #1a1a1a !important; 
+    border: 2px solid #555555 !important; /* Visible Gray Border */
+    
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    outline: none !important;
+    box-sizing: border-box !important; /* Border-a box kulla vachukkum */
+}
+
+/* User focus pannumbo magenta glow varum */
+.puravigal_form input:focus, 
+.puravigal_form textarea:focus {
+    border-color: #E60063 !important;
+    background-color: #222222 !important;
+    box-shadow: 0 0 10px rgba(230, 0, 99, 0.5) !important;
+}
+
+            /* Gradient Submit Button */
+            .submit_btn {
+                width: 100%;
+                padding: 16px;
+                background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-pink) 100%);
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                font-size: 17px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.3s;
+                margin-top: 10px;
+            }
+
+            .submit_btn:hover {
+                box-shadow: 0 5px 15px rgba(230, 0, 99, 0.4);
+                transform: translateY(-2px);
+            }
+
+            /* Response Messages */
+            .status_msg {
+                margin-top: 25px;
+                font-size: 14px;
+                padding: 15px;
+                border-radius: 8px;
+                display: none;
+                font-weight: 500;
+            }
+            /* Box visibility fix */
+
+
+/* Captcha text visibility */
+#captchaQuestion {
+    color: #00ff88 !important; /* Green for security check */
+    font-weight: bold;
+    display: block;
+    margin: 15px 0 8px 0;
+}
+            .status_msg.success { background-color: rgba(0, 255, 136, 0.1); color: #00ff88; display: block; }
+            .status_msg.error { background-color: rgba(255, 68, 68, 0.1); color: #ff4444; display: block; }
+        </style>
     </head>
     <body class="dark">
         <main>
@@ -57,9 +224,38 @@
                             <span class="mini_title">We Make Good Stuff</span>
                             <h1>Innovative <span>SaaS</span> Solutions for Modern Businesses</h1>
                             <p>Discover cutting-edge SaaS platforms crafted to elevate your business. Our powerful and advanced solutions are designed for seamless operations, providing efficiency and excellence for your evolving needs.</p>
-                            <a class="primary_cta_btn" href="mailto:sales@puravigal.com">Get in Touch</a>
+                            <a class="primary_cta_btn" id="getInTouchBtn" href="mailto:sales@puravigal.com">Get in Touch</a>
                         </div>
                     </div>
+                    <div id="contactModal" class="contact_modal">
+            <div class="modal_content">
+                <button id="closeModal" class="close_modal">&times;</button>
+                <h2>Let's build together.</h2>
+                <p>Ready to elevate your business? Fill in the details below, and we'll connect soon.</p>
+                
+                <form id="puravigalLeadForm" class="puravigal_form">
+                    <div class="input_group">
+                        <label for="name">Your Full Name</label>
+                        <input type="text" id="name" autocomplete="name" placeholder="E.g. Selva Kumar" required>
+                    </div>
+                    <div class="input_group">
+                        <label for="email">Work Email Address</label>
+                        <input type="email" id="email" autocomplete="email" placeholder="E.g. business@puravigal.com" required>
+                    </div>
+                    <div class="input_group">
+                        <label for="message">How can we help you?</label>
+                        <textarea id="message" rows="6" placeholder="Describe your project, question, or need..."></textarea>
+                    </div>
+                    <div class="input_wrap">
+    <label id="captchaQuestion" style="color: #E60063; font-weight: bold;"></label>
+    <input type="text" id="captchaInput" placeholder="Enter the result" required>
+</div>
+                    <button type="submit" class="submit_btn" id="submitBtn">Send Message</button>
+                </form>
+                
+                <div id="responseMsg" class="status_msg"></div>
+            </div>
+        </div>
                     <div class="about_sec">
                         <div class="white_sec about_inr">
                             <div class="inr_box">
@@ -158,7 +354,34 @@
                 </div>
             </div>
         </footer>
+        <script>
+            // 1. Modal Logic
+    const modal = document.getElementById('contactModal');
+    const openBtn = document.getElementById('getInTouchBtn');
+    const closeBtn = document.getElementById('closeModal');
 
+    openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        generateCaptcha(); // Modal open aagumbodhu pudhu captcha generate aagum
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+
+    // 2. Simple Math Captcha Logic
+    let captchaResult;
+
+    function generateCaptcha() {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        captchaResult = num1 + num2;
+        document.getElementById('captchaQuestion').innerText = `Security Check: What is ${num1} + ${num2}?`;
+    }
+        </script>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -174,6 +397,8 @@
                     "https://www.threads.net/@puravigal"
                 ]
             }
+            
         </script>
     </body>
 </html>
+
