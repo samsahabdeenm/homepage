@@ -16,8 +16,8 @@
     <loc>https://puravigal.com/privacy-policy.html</loc>
     <xhtml:link href="https://puravigal.com/privacy-policy.html" hreflang="x-default" rel="alternate"/>
   </url>
-    <url>
-    <loc>https://www.puravigal.com/Careers.html?source=nav</loc>
-    <xhtml:link href="https://www.puravigal.com/Careers.html?source=nav" hreflang="x-default" rel="alternate"/>
+  <url>
+    <loc>https://puravigal.com/Careers.html</loc>
+    <xhtml:link href="https://puravigal.com/Careers.html" hreflang="x-default" rel="alternate"/>
   </url>
 </urlset>
