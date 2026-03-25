@@ -439,12 +439,13 @@
             //         btn.innerText = "Send Message";
             //     }
             // };
-            // --- Modal Logic --- (Idhu eppavum pola dhaan)
+
+// --- Modal Logic ---
 const modal = document.getElementById('contactModal');
 const openBtn = document.getElementById('getInTouchBtn');
 const closeBtn = document.getElementById('closeModal');
 
-let n1, n2; // Random numbers-a global-a vachukalam
+let n1, n2; 
 
 function generateCaptcha() {
     n1 = Math.floor(Math.random() * 10) + 1;
@@ -464,9 +465,10 @@ closeBtn.onclick = () => {
     document.body.style.overflow = 'auto';
 };
 
-// --- NEW Supabase Edge Function Logic ---
-// ⚠️ REPLACE THIS URL with your actual Edge Function URL from Dashboard
+// --- Supabase Edge Function Settings ---
 const EDGE_FUNCTION_URL = "https://nentrwodmkcnzafespvk.supabase.co/functions/v1/verify-captcha";
+// ⚠️ Unga Anon Key-a inga confirm pannikonga
+const S_KEY = "sb_publishable_H7AdWIjdPbdy__pKYLDp6w_JS6AQUWX"; 
 
 document.getElementById('puravigalLeadForm').onsubmit = async (e) => {
     e.preventDefault();
@@ -477,8 +479,6 @@ document.getElementById('puravigalLeadForm').onsubmit = async (e) => {
     btn.disabled = true;
     btn.innerText = "Verifying...";
 
-    // Hacker point of view: Avaru indha n1, n2, userAns-a loop-la mathi mathi anuppuvadu.
-    // Aana Server (Edge Function) calculation correct-a nu check panni thappu-na Reject pannidum.
     const payload = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
@@ -491,7 +491,11 @@ document.getElementById('puravigalLeadForm').onsubmit = async (e) => {
     try {
         const response = await fetch(EDGE_FUNCTION_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${S_KEY}`, // 401 error-a fix panna idhu mukkiyam
+                'apikey': S_KEY 
+            },
             body: JSON.stringify(payload)
         });
 
@@ -503,14 +507,19 @@ document.getElementById('puravigalLeadForm').onsubmit = async (e) => {
             msg.style.color = '#00ff88';
             msg.innerText = "Success! Lead stored safely.";
             document.getElementById('puravigalLeadForm').reset();
-            setTimeout(() => { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }, 3000);
+            
+            setTimeout(() => { 
+                modal.classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+                msg.style.display = 'none';
+            }, 3000);
         } else {
-            // Error handling (Wrong Captcha logic)
+            // Server (Edge Function) math-a reject panna inga varum
             msg.style.display = 'block';
             msg.style.background = 'rgba(255,0,0,0.1)';
             msg.style.color = '#ff4444';
             msg.innerText = result.error || "Verification failed!";
-            generateCaptcha(); // Answer thappu-na refresh pannanum
+            generateCaptcha(); 
             document.getElementById('captchaInput').value = "";
         }
     } catch (err) {
