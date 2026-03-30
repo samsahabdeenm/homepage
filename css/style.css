@@ -67,7 +67,7 @@ aside * {
             /* Modal Title and Description */
             .modal_content h2 {
                 color: #fff;
-                font-size: 32px;
+                font-size: 30px;
                 margin-bottom: 10px;
                 font-weight: 800;
                 line-height: 1.2;
@@ -76,7 +76,7 @@ aside * {
             .modal_content p {
                 color: #888;
                 margin-bottom: 40px;
-                font-size: 16px;
+                font-size: 16px !important;
                 line-height: 1.6;
             }
 
