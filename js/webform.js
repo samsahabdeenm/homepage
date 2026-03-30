@@ -642,13 +642,13 @@
         this["render_" + type] ? this["render_" + type](entry) : this.render_input(entry);
 
         if (field.helperText) {
-            helper = createElement("p", "gwf__helper", field.helperText);
+            helper = createElement("div", "gwf__helper", field.helperText);
             helper.id = name + "_helper";
             group.appendChild(helper);
             entry.helper = helper;
         }
 
-        error = createElement("p", "gwf__error");
+        error = createElement("div", "gwf__error");
         error.id = name + "_error";
         error.setAttribute("aria-live", "polite");
         error.setAttribute("aria-atomic", "true");
@@ -1288,6 +1288,7 @@
         if (entry.input) {
             entry.input.addEventListener("keyup", validate);
             entry.input.addEventListener("change", validate);
+            entry.input.addEventListener("blur", validate);
         }
     };
 

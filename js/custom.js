@@ -129,6 +129,8 @@
                     placeholder: "Enter your full name",
                     required: true,
                     minLength: 2,
+                    pattern: /^[a-zA-Z\s.',-]+$/,
+                    error: "Please enter a valid name (letters only).",
                     width: "full"
                 },
                 {
