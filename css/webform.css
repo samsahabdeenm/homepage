@@ -163,7 +163,6 @@
 .gwf__group.is-invalid .gwf__choice,
 .gwf__group.is-invalid .gwf__file {
     border-color: #d34545;
-    background: #fff4f4;
 }
 
 .gwf__phone {
