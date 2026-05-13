@@ -151,6 +151,10 @@ span {
   font: var(--page-font-body);
 }
 
+a{
+  margin-bottom: 0px;
+}
+
 .dark_text_sec p,
 .dark_text_sec li,
 .dark_text_sec a,
