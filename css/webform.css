@@ -695,6 +695,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-bottom: 0px;
 }
 
 .modal_content .gwf__phone .gwf__control {
