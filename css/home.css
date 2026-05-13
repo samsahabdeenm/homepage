@@ -297,7 +297,7 @@
   background: var(--page-light-bg);
 }
 .prod_inr{
-  max-width: 100%;
+  max-width: 800px;
   width: 100%;
   display: flex;
   align-items: center;
