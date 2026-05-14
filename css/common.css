@@ -50,6 +50,8 @@
   --page-font-h6: 600 36px/1.2 var(--page-font-family-heading);
   --page-font-header-title: 700 24px/1.2 var(--page-font-family-heading);
   --page-font-eyebrow: 600 18px/1.2 var(--page-font-family-heading);
+  --page-conic-bg: conic-gradient(from 35deg,#000,#450569);
+  --page-light-text-color: #efdef9;
 }
 
 *,
@@ -141,12 +143,15 @@ iframe {
   height: auto;
 }
 
+p{
+  margin: 0 0 var(--page-text-spacing);
+}
+
 p,
 li,
 a,
 label,
 span {
-  margin: 0 0 var(--page-text-spacing);
   color: var(--page-color);
   font: var(--page-font-body);
 }
@@ -173,7 +178,6 @@ a,
 .dark_text_sec a {
   color: var(--page-primary);
   text-decoration: none;
-  margin-bottom: 0px;
 }
 
 a:hover {
