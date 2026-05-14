@@ -297,7 +297,7 @@
   background: var(--page-light-bg);
 }
 .prod_inr{
-  max-width: 800px;
+  max-width: 100%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -337,6 +337,92 @@
 .desc_sec p{
   margin-bottom: 0px;
 }
+.sss_sec{
+  padding-top: 0px;
+  background: var(--page-light-bg);
+}
+.sss_sec:after{
+  content: "";
+  position: absolute;
+  height: 240px;
+  width: 100%;
+  left: 0px;
+  bottom: 0px;
+  background: var(--page-bg);
+}
+.sss_sec .inr_container{
+  z-index: 1;
+  padding: var(--page-padding) 5%;
+  background: var(--page-conic-bg);
+  border-radius: var(--page-radius);
+  background-size: 170% 200%;
+  background-position: 20% 75%;
+  background-repeat: no-repeat;
+}
+.s_sec{
+  display: flex;
+  align-items: center;
+}
+.s_count{
+  display: inline-block;
+  font: 800 164px/0.8 var(--page-font-family-heading);
+  color: #dda4ff;
+}
+.s_text_sec{
+  display: flex;
+  flex-wrap: wrap;
+}
+.s_text_sec .s_text{
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  font: 800 34px/1 var(--page-font-family-heading);
+  color: var(--page-light-text-color);
+  margin-left: 2.5px;
+  margin-bottom: 7.5px;
+}
+.s_text_sec .s_text:last-child{
+  margin-bottom: 0px;
+}
+.s_box_sec{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+  flex-wrap: wrap;
+}
+.s_box{
+  position: relative;
+  max-width: calc(33.3% - 50px);
+  width: 100%;
+}
+.s_cnt{
+  display: inline-block;
+  position: relative;
+  height: 75px;
+  width: 75px;
+  background: conic-gradient(from 35deg,#000,#400162);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--page-brand-item-radius);
+  font: 600 28px/1.2 var(--page-font-family-heading);
+}
+.s_box h4{
+  color: var(--page-light-text-color);
+}
+.s_box span,
+.s_box p{
+  color: var(--page-bg);
+}
+.s_box p{
+  margin-bottom: 0px;
+}
+@media (max-width: 1180px) {
+  .s_box{
+    max-width: calc(33.3% - 30px);
+  }
+}
 @media (max-width: 992px) {
   .page_sec .bnr_img_strip {
     gap: 20px;
@@ -369,6 +455,13 @@
   .desc_sec{
     max-width: 100%;
     text-align: center;
+  }
+  .s_box{
+    max-width: 500px;
+    margin-bottom: 30px;
+  }
+  .s_box:last-child{
+    margin-bottom: 0px;
   }
 }
 
